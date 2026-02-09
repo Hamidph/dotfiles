@@ -1,0 +1,249 @@
+# Cursor AI Agent Rules - Package Management & Development Standards
+
+## Core Principles
+
+You are working in a systematically managed development environment. All installations, dependencies, and changes MUST be tracked and documented.
+
+---
+
+## Package Management Rules
+
+### 1. System-Level Packages (macOS Apps & CLI Tools)
+**ALWAYS use Homebrew for system-level installations:**
+
+```bash
+# Correct ✅
+brew install package-name
+brew install --cask app-name
+
+# Wrong ❌
+curl -fsSL https://install.example.com | bash
+apt-get install package-name
+npm install -g package-name
+```
+
+**When installing system packages:**
+1. Add to `/Users/hamid/dotfiles/Brewfile` in the appropriate category
+2. Run the brew install command
+3. Update `/Users/hamid/dotfiles/HISTORY.md` with date and reason
+4. Commit changes to the dotfiles repository
+
+### 2. Python Project Dependencies
+**ALWAYS use `uv` for Python projects:**
+
+```bash
+# Correct ✅
+uv add package-name
+uv add --dev package-name
+
+# Wrong ❌
+pip install package-name
+poetry add package-name
+conda install package-name
+```
+
+**Project structure:**
+- Use `uv init project-name` for new projects
+- Dependencies go in `pyproject.toml` (automatically managed by uv)
+- Use `uv run python script.py` to run code
+- Use `uv sync` to install dependencies from lock file
+
+### 3. Node.js Project Dependencies
+**ALWAYS use `pnpm` for Node.js projects:**
+
+```bash
+# Correct ✅
+pnpm add package-name
+pnpm add -D package-name
+
+# Wrong ❌
+npm install package-name
+yarn add package-name
+```
+
+**Project structure:**
+- Use `pnpm init` for new projects
+- Dependencies go in `package.json`
+- Lock file: `pnpm-lock.yaml`
+- Use `pnpm install` to install from lock file
+
+---
+
+## Installation Hierarchy
+
+**Follow this decision tree for every installation:**
+
+1. **Is it a system tool or app?** → Use Homebrew + update dotfiles
+2. **Is it a Python package for a project?** → Use `uv add` in that project
+3. **Is it a Node.js package for a project?** → Use `pnpm add` in that project
+4. **Is it a global CLI tool written in Python?** → Use `pipx install` + add to dotfiles
+5. **Is it a global CLI tool written in Node.js?** → Use Homebrew if available, else document why using npm global
+
+---
+
+## Documentation Requirements
+
+### Every Time You Install Something:
+
+**For Homebrew packages:**
+```markdown
+1. Update /Users/hamid/dotfiles/Brewfile
+2. Update /Users/hamid/dotfiles/HISTORY.md:
+   ## YYYY-MM-DD
+   ### Added
+   - **Package Name** (`exact-brew-name`)
+     - Brief description
+     - Reason for adding
+```
+
+**For project dependencies:**
+```markdown
+1. Add to project's pyproject.toml or package.json (automatic with uv/pnpm)
+2. Commit the lock file (uv.lock or pnpm-lock.yaml)
+3. Update project README.md if it's a significant dependency
+```
+
+---
+
+## Project Setup Standards
+
+### New Python Project
+```bash
+# Initialize with uv
+uv init project-name
+cd project-name
+
+# Add common dependencies
+uv add anthropic langchain langgraph
+uv add --dev pytest ruff
+
+# Run the project
+uv run python main.py
+```
+
+### New Node.js Project
+```bash
+# Initialize with pnpm
+pnpm init
+pnpm add express
+pnpm add -D typescript @types/node
+
+# Run scripts
+pnpm run dev
+```
+
+---
+
+## Forbidden Actions
+
+❌ **NEVER do these without explicit user permission:**
+- Install packages via pip/npm/yarn directly
+- Use curl | bash installation scripts
+- Install global npm packages (use Homebrew or pipx instead)
+- Mix package managers (e.g., using both pip and uv in same project)
+- Skip updating HISTORY.md for dotfiles changes
+- Create virtual environments manually (uv handles this)
+
+---
+
+## Environment Standards
+
+### Python
+- **Version**: Python 3.12 (installed via Homebrew)
+- **Package Manager**: `uv` (installed via Homebrew)
+- **Global CLI Tools**: `pipx` (installed via Homebrew)
+- **Linter/Formatter**: `ruff` (installed via pipx)
+
+### Node.js
+- **Version**: Latest LTS (installed via Homebrew)
+- **Package Manager**: `pnpm` (installed via Homebrew)
+- **Never use**: npm, yarn (except for compatibility)
+
+### System
+- **Package Manager**: Homebrew only
+- **Shell**: zsh (default on macOS)
+- **Terminal**: iTerm2
+- **Code Editor**: Cursor
+
+---
+
+## File Structure Expectations
+
+```
+~/
+├── dotfiles/                    # System configuration
+│   ├── Brewfile                # System packages
+│   ├── HISTORY.md              # Change log
+│   └── .cursorrules            # This file
+│
+├── projects/                   # All projects here
+│   ├── ai-project/
+│   │   ├── pyproject.toml     # Python deps (uv)
+│   │   ├── uv.lock            # Lock file
+│   │   └── .python-version    # Python version
+│   │
+│   └── web-app/
+│       ├── package.json       # Node deps (pnpm)
+│       └── pnpm-lock.yaml     # Lock file
+```
+
+---
+
+## When User Asks to Install Something
+
+**Your response should be:**
+
+1. **Identify the type**: System tool, Python package, or Node package?
+2. **Choose the right tool**: Homebrew, uv, or pnpm
+3. **Execute installation**: Run the appropriate command
+4. **Document change**: Update relevant files (Brewfile + HISTORY.md for system packages)
+5. **Confirm**: Tell user what was installed and where it was documented
+
+**Example interaction:**
+```
+User: "install pandas"
+
+Agent: "I see you want to install pandas. Is this for:
+1. A specific Python project (I'll use `uv add pandas` in that project)
+2. Global system use (I'll use `pipx install pandas` and update your dotfiles)
+
+[Wait for clarification, then proceed with appropriate method]"
+```
+
+---
+
+## Debugging & Troubleshooting
+
+### If a package installation fails:
+1. Check if it's available via the preferred package manager
+2. Suggest alternative package name or source
+3. Document why you chose an alternative approach
+4. Ask user before using fallback methods
+
+### If dependencies conflict:
+1. Show the conflict clearly
+2. Suggest resolution (update, downgrade, or remove conflicting package)
+3. Document the resolution in project README or HISTORY.md
+
+---
+
+## Summary Checklist
+
+Before completing any task, verify:
+- ✅ Used correct package manager (Homebrew/uv/pnpm)
+- ✅ Updated documentation (Brewfile/HISTORY.md or project files)
+- ✅ Committed lock files (uv.lock/pnpm-lock.yaml)
+- ✅ No global npm/pip installations without documentation
+- ✅ Maintained consistency with existing project structure
+
+---
+
+## Reference
+
+- Dotfiles repository: https://github.com/Hamidph/dotfiles
+- uv documentation: Use for Python project dependencies
+- pnpm documentation: Use for Node.js project dependencies
+- Homebrew: Use for system-level packages and apps
+
+**Remember:** This system keeps everything organized, tracked, and reproducible across machines. Every installation should be documented and use the standardized tools.
+
