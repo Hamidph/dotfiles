@@ -15,6 +15,9 @@ brew "python@3.12"
 brew "uv"
 brew "pipx"
 
+# R
+brew "r"
+
 # Node.js (for MCP servers)
 brew "node"
 brew "pnpm"
@@ -24,16 +27,14 @@ brew "poppler"
 
 # Apps
 cask "chatgpt"
-cask "chatgpt-atlas"
 cask "claude"
 cask "codex-app"
-cask "comet"
 cask "cursor"
 cask "iterm2"
-cask "raycast"
+cask "rstudio"
+cask "istat-menus"
 cask "docker"
 cask "google-chrome"
-cask "google-drive"
 cask "notion"
 cask "logi-options+"
 
