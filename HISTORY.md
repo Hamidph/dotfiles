@@ -17,6 +17,20 @@ This file tracks all changes to the Brewfile over time. Every addition, removal,
   - IDE for R development installed via Homebrew cask
   - Added alongside R to support R-based workflows on this Mac
 
+### Removed
+- **R** (`r`)
+  - Removed from this package baseline and uninstalled from the machine
+  - Repo is being kept focused as a shared laptop package set
+- **RStudio** (`rstudio`)
+  - Removed from Brewfile and uninstalled from `/Applications`
+  - No longer part of the standard laptop environment
+- **iStat Menus** (`istat-menus`)
+  - Removed from Brewfile and requested for uninstall
+  - Homebrew uninstall ran, but one privileged cleanup step requires local sudo interaction
+- **QuickRecorder** (`lihaoyun6/tap/quickrecorder`)
+  - Removed from Brewfile and uninstalled from the machine
+  - No longer part of the standard laptop environment
+
 ### Removed / Cleaned
 - **1Password**
   - Not installed via Homebrew, so no Brewfile change
