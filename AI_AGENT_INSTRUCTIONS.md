@@ -85,14 +85,14 @@ Usage examples and reference for installed tools. Update this if you add tools t
 1. Add package to Brewfile in appropriate category
 2. Run installation command in terminal (with 'all' permissions)
 3. Update HISTORY.md with date and details
-4. If it's a significant tool, consider adding usage examples to mac-setup-guide.md
+4. If it's a significant tool, consider adding usage examples to TOOLS.md
 ```
 
 **Example:**
 ```bash
-# User says: "install quickrecorder"
-# Step 1: Add to Brewfile under appropriate category
-# Step 2: Run: brew install lihaoyun6/tap/quickrecorder
+# User says: "install discord"
+# Step 1: Add to Brewfile under # Apps
+# Step 2: Run: brew install --cask discord
 # Step 3: Update HISTORY.md with entry
 ```
 
@@ -128,11 +128,8 @@ Keep the Brewfile organized with clear category headers:
 - Python
 - Node.js
 - AI/Data
-- Screen Recording
-- Productivity
-- Development
 - Apps
-(Add new categories as needed)
+(Add new categories as needed when a group of 2+ tools share a theme)
 
 ## Context for New Agents
 
