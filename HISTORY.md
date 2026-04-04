@@ -2,6 +2,13 @@
 
 This file tracks all changes to the Brewfile over time. Every addition, removal, or modification should be documented here.
 
+## 2026-04-04
+
+### Added
+- **Blip** (`blip`)
+  - File transfer app for sending any size file between devices
+  - Installed via Homebrew cask
+
 ## 2026-03-06
 
 ### Added
