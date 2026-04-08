@@ -21,6 +21,8 @@ brew "pnpm"
 
 # AI/Data
 brew "poppler"
+brew "ollama"
+cask "ollama"
 
 # Apps
 cask "chatgpt"

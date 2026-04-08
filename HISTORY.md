@@ -2,6 +2,14 @@
 
 This file tracks all changes to the Brewfile over time. Every addition, removal, or modification should be documented here.
 
+## 2026-04-08
+
+### Added
+- **Ollama** (`ollama` cask + formula)
+  - Local LLM runner for macOS — run models like Llama, Mistral, Gemma locally
+  - `cask "ollama"` installs the GUI menu bar app (`Ollama.app`)
+  - `brew "ollama"` installs the CLI for running and managing models from terminal
+
 ## 2026-04-04
 
 ### Added
