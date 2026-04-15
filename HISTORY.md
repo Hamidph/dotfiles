@@ -2,6 +2,22 @@
 
 This file tracks all changes to the Brewfile over time. Every addition, removal, or modification should be documented here.
 
+## 2026-04-15
+
+### Added
+- **Claude Code** (`claude-code`)
+  - Anthropic's terminal-based AI coding agent
+  - Installed via Homebrew cask — provides `claude` CLI command
+
+### Removed
+- **Ollama** (`ollama` cask + formula) — uninstalled app and CLI
+- **Blip** (`blip`) — file transfer app removed
+- **Codex App** (`codex-app`) — OpenAI Codex agent removed
+- **ChatGPT** (`chatgpt`) — desktop app removed
+- **Notion** (`notion`) — workspace app removed
+- **iTerm2** (`iterm2`) — terminal emulator removed
+- Keeping base macOS Terminal or switching to another terminal solution
+
 ## 2026-04-08
 
 ### Added

@@ -21,17 +21,11 @@ brew "pnpm"
 
 # AI/Data
 brew "poppler"
-brew "ollama"
-cask "ollama"
 
 # Apps
-cask "chatgpt"
 cask "claude"
-cask "codex-app"
+cask "claude-code"
 cask "cursor"
-cask "iterm2"
 cask "docker"
 cask "google-chrome"
-cask "notion"
 cask "logi-options+"
-cask "blip"
